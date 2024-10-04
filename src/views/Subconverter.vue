@@ -543,8 +543,6 @@ export default {
           })
           .then(res => {
             if (res.data.Code === 1 && res.data.ShortUrl !== "") {
-              console.log('=>(Subconverter.vue:542) res', res);
-              console.log('=>(Subconverter.vue:542) res', shortUrlBackendDomain);
               this.curtomShortSubUrl = res.data.ShortUrl.replace(shortUrlBackendDomain, `${shortUrlBackendDomain}:${shortUrlBackendPort}`);
               this.$copyText(res.data.ShortUrl);
               this.$message.success("短链接已复制到剪贴板");
