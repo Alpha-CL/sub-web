@@ -384,7 +384,14 @@ export default {
               if (!response.data) return;
               const backendOptions = JSON.parse(JSON.stringify(response.data));
               if (Array.isArray(backendOptions)) {
-                this.options.backendOptions.unshift(...backendOptions);
+                const backendOptionsList = [...this.options.backendOptions, ...backendOptions];
+                this.options.backendOptions = backendOptionsList.reduce((acc, current) => {
+                  const existingItem = acc.find(item => item.value === current.value);
+                  if (!existingItem) {
+                    acc.push(current);
+                  }
+                  return acc;
+                }, []);
               }
             })
             .catch(err => {
@@ -566,7 +573,7 @@ export default {
         message: h(
             "i",
             {style: "color: teal"},
-            "各种订阅链接（短链接服务除外）生成纯前端实现，无隐私问题。默认提供后端转换服务，隐私担忧者请自行搭建后端服务。"
+            "各种订阅链接( 短链接服务除外 )生成纯前端实现，无隐私问题。默认提供后端转换服务，隐私担忧者请自行搭建后端服务。"
         )
       });
     },
